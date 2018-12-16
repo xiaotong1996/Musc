@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">Musc</string>
+    <!-- Strings related to login -->
+    <string name="login_email">Email</string>
+    <string name="login_logo">Logo</string>
+    <string name="login_password">Password</string>
+    <string name="login_login">LOGIN</string>
+    <string name="login_signup">No account yet? Create one</string>
+
+    <!-- Strings related to signup -->
+    <string name="signup_name">Name</string>
+    <string name="signup_email">Email</string>
+    <string name="signup_password">Password</string>
+    <string name="signup_create_account">Create Account</string>
+    <string name="signup_back_login">Already a member? Login</string>
+
+    <!-- Strings related to Record -->
+    <string name="record_weight">Weight(kg)</string>
+    <string name="record_times">Times</string>
+    <string name="record_choose_group">Choose a Muscle Group</string>
+    <string name="record_choose_action">Choose an action</string>
+    <string name="record_record">Record</string>
+    <string name="record_clear">CLEAR ALL</string>
+    <string name="record_save">SAVE</string>
+    <string name="record_gif_description">Tenor</string>
+
+
+    <!-- Strings related to Nav -->
+    <string name="title_activity_main">Record List</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Musc</string>
+    <string name="nav_header_subtitle"></string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Strings related to BottomNav -->
+    <string name="menu_bottom_list">List</string>
+    <string name="menu_bottom_Analyse">Analyse</string>
+
+    <!-- Strings related to Menu -->
+    <string name="menu_body">Body</string>
+    <string name="menu_workout">Workout</string>
+    <string name="menu_setting">Setting</string>
+
+    <!-- Strings related to Analyse -->
+    <string name="analyse_choose_type">Type</string>
+    <string name="analyse_choose_item">Item</string>
+
+
+</resources>

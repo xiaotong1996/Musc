@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <group name="Chest">
+        <action>Dumbbell Bench Press</action>
+        <action>Pushups</action>
+        <action>Dumbbell Flyes</action>
+    </group>
+    <group name="Forearms">
+        <action>Rickshaw Carry</action>
+        <action>Wrist Rotations with Straight Bar</action>
+        <action>Palms-Down Wrist Curl Over A Bench</action>
+    </group>
+    <group name="Lats">
+        <action>Weighted Pull Ups</action>
+        <action>Pullups</action>
+        <action>Chin-Up</action>
+    </group>
+</resources>
