@@ -1,9 +1,11 @@
 package com.example.chenx.musc.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.XmlResourceParser;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -20,6 +22,7 @@ import com.example.chenx.musc.R;
 
 import com.example.chenx.musc.model.Action;
 import com.example.chenx.musc.model.Record;
+import com.example.chenx.musc.model.User;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -59,6 +62,8 @@ public class AnalyseWorkoutFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
+    private SharedPreferences pref;
+
     private String mParam1;
     private String mParam2;
 
@@ -190,7 +195,13 @@ public class AnalyseWorkoutFragment extends Fragment {
 
 
     private void initRecords(){
+        pref=PreferenceManager.getDefaultSharedPreferences(getContext());
+        String email=pref.getString("email","");
+        User user=LitePal.where("email = ?",email).find(User.class).get(0);
+        recordList=LitePal.where("user_id = ?",String.valueOf(user.getId())).find(Record.class,true);
+
         // List<Action> actions=LitePal.findAll(Action.class);
+        /*
         recordList=new ArrayList<>();
         actionList=new ArrayList<>();
         actionList=LitePal.findAll(Action.class);
@@ -201,7 +212,7 @@ public class AnalyseWorkoutFragment extends Fragment {
                 record.setAction(action);
                 recordList.add(record);
             }
-        }
+        }*/
     }
 
     private void initPieChart()

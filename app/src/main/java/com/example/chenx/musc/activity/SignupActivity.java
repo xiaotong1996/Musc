@@ -1,7 +1,9 @@
 package com.example.chenx.musc.activity;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -14,11 +16,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.example.chenx.musc.R;
+import com.example.chenx.musc.model.Action;
 import com.example.chenx.musc.model.User;
+
+import org.litepal.LitePal;
+import org.litepal.LitePalDB;
+
+import java.security.acl.Group;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
 
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
     @BindView(R.id.input_name) EditText _nameText;
     @BindView(R.id.input_email) EditText _emailText;
     @BindView(R.id.input_password) EditText _passwordText;
@@ -31,6 +41,9 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
+
+
+        pref=PreferenceManager.getDefaultSharedPreferences(this);
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +88,10 @@ public class SignupActivity extends AppCompatActivity {
         user.setPassword(password);
         user.save();
 
+        editor=pref.edit();
+        editor.putString("email",_emailText.getText().toString());
+        editor.apply();
+
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -90,6 +107,7 @@ public class SignupActivity extends AppCompatActivity {
 
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
+
         setResult(RESULT_OK, null);
         finish();
     }

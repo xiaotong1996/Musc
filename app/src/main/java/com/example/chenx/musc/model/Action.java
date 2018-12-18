@@ -9,14 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Action extends LitePalSupport {
-   @Column(nullable = false,defaultValue = "unknown workout")
+   @Column(unique = true,defaultValue = "unknown workout")
     private String name;
 
     @Column(nullable = false)
     private String group;
 
+    @Column(ignore = true)
     private String tinyUrl;
 
+    @Column(ignore = true)
     private String url;
 
     private List<Record> records=new ArrayList<Record>();
@@ -77,4 +79,6 @@ public class Action extends LitePalSupport {
     public List<Record> getRecords() {
         return LitePal.where("action_id = ?",String.valueOf(getBaseObjId())).find(Record.class);
     }
+
+
 }

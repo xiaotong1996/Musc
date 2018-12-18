@@ -3,6 +3,7 @@ package com.example.chenx.musc.activity;
 import android.content.SharedPreferences;
 import android.content.res.XmlResourceParser;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.example.chenx.musc.MyApplication;
 import com.example.chenx.musc.R;
 import com.example.chenx.musc.model.Action;
 import com.example.chenx.musc.model.Record;
+import com.example.chenx.musc.model.User;
 import com.example.chenx.musc.tool.TenorTool;
 
 import org.litepal.LitePal;
@@ -34,6 +36,7 @@ import java.util.Date;
 import java.util.List;
 
 public class RecordActivity extends AppCompatActivity{
+    private SharedPreferences pref;
 
     private  Spinner spinnerGroup;
     private Spinner spinnerAction;
@@ -136,21 +139,43 @@ public class RecordActivity extends AppCompatActivity{
     public boolean save(){
         String actionName=spinnerAction.getSelectedItem().toString();
         String actionGroup=spinnerGroup.getSelectedItem().toString();
-        Action action=new Action();
-        action.setGroup(actionGroup);
-        action.setName(actionName);
-        action.save();
 
+        pref=PreferenceManager.getDefaultSharedPreferences(this);
+        String email=pref.getString("email","");
         Record record=new Record();
-        record.setAction(action);
-        record.setDate(new Date(System.currentTimeMillis()));
-        record.setTimes(timesChooser.getValue());
-        record.setWoWeight(weightChoose.getValue());
-        if(record.save()){
-            return true;
+        Action action;
+        User user=LitePal.where("email = ?",email).find(User.class).get(0);
+        record.setUser(user);
+        if(LitePal.isExist(Action.class,"name = ?",actionName))
+        {
+            action=LitePal.where("name = ? and group = ?",actionName,actionGroup).find(Action.class).get(0);
+            record.setAction(action);
+            record.setDate(new Date(System.currentTimeMillis()));
+            record.setTimes(timesChooser.getValue());
+            record.setWoWeight(weightChoose.getValue());
+            if(record.save()){
+                return true;
+            }else{
+                return false;
+            }
+
         }else{
-            return false;
+            action=new Action();
+            action.setGroup(actionGroup);
+            action.setName(actionName);
+            action.save();
+
+            record.setAction(action);
+            record.setDate(new Date(System.currentTimeMillis()));
+            record.setTimes(timesChooser.getValue());
+            record.setWoWeight(weightChoose.getValue());
+            if(record.save()){
+                return true;
+            }else{
+                return false;
+            }
         }
+
     }
 
     public void saveSaync(){

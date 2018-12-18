@@ -21,6 +21,17 @@ public class Record extends LitePalSupport {
     @Column(nullable = false)
     private float woWeight;
 
+    @Column(nullable = false)
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Date getDate() {
         return date;
     }

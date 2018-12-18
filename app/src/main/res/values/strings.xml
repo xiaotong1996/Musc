@@ -6,6 +6,7 @@
     <string name="login_password">Password</string>
     <string name="login_login">LOGIN</string>
     <string name="login_signup">No account yet? Create one</string>
+    <string name="login_rememberPWD">Remember password?</string>
 
     <!-- Strings related to signup -->
     <string name="signup_name">Name</string>

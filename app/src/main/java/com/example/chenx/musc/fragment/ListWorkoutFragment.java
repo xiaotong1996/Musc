@@ -1,8 +1,10 @@
 package com.example.chenx.musc.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,7 @@ import com.example.chenx.musc.MyApplication;
 import com.example.chenx.musc.R;
 import com.example.chenx.musc.model.Action;
 import com.example.chenx.musc.model.Record;
+import com.example.chenx.musc.model.User;
 import com.example.chenx.musc.tool.RecordAdapter;
 
 import org.litepal.LitePal;
@@ -40,27 +43,35 @@ public class ListWorkoutFragment extends Fragment {
 
 
     // TODO: Rename and change types of parameters
+    private SharedPreferences pref;
+
     private String mParam1;
     private String mParam2;
 
     private RecyclerView recyclerView;
 
     private List<Record> recordList;
-    private List<Action> actionList;
+    //private List<Action> actionList;
 
     private void initRecords(){
-        // List<Action> actions=LitePal.findAll(Action.class);
-        recordList=new ArrayList<>();
-        actionList=new ArrayList<>();
-        actionList=LitePal.findAll(Action.class);
-        //recordList=LitePal.findAll(Record.class);
+        pref=PreferenceManager.getDefaultSharedPreferences(getContext());
+        String email=pref.getString("email","");
+        User user=LitePal.where("email = ?",email).find(User.class).get(0);
+
+
+        //List<Action> actions=LitePal.findAll(Action.class);
+        //recordList=new ArrayList<>();
+        //actionList=new ArrayList<>();
+        //actionList=LitePal.findAll(Action.class);
+        recordList=LitePal.where("user_id = ?",String.valueOf(user.getId())).find(Record.class,true);
+        /*
         for(Action action : actionList){
             List<Record> records=action.getRecords();
             for(Record record : records){
                 record.setAction(action);
                 recordList.add(record);
             }
-        }
+        }*/
     }
 
     private OnFragmentInteractionListener mListener;
